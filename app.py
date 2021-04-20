@@ -96,8 +96,9 @@ def get_info():
                 )
         return response
     print("Shouldnt come here")
+    failure = {"id":"No Recognized Hit!"}
     response = app.response_class(
-                response=dumps(),
+                response=dumps(failure),
                 status=404,
                 mimetype='application/json'
             )
@@ -151,4 +152,4 @@ def downvote():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug="True")
