@@ -60,7 +60,6 @@ def del_info():
 
 @app.route('/edit_info/', methods=['POST', 'GET'])
 def edit_info():
-    prin("Comes Here 0")
     if request.method == "POST":
         obj_id = request.form['entry_id']
         myquery = {u"_id":ObjectId(u""+str(obj_id))}
@@ -81,6 +80,7 @@ def edit_info():
 
 @app.route('/get_info/', methods=['POST', 'GET'])
 def get_info():
+    print("Comes Here 0")
     if request.method == 'POST':
         #query_dict = {u'State':str(request.form['State']),u'Category':str(request.form['Category']),u'City':str(request.form['City'])}
         query_dict = {u'City':str(request.form['City'])}
