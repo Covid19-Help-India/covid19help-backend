@@ -5,6 +5,8 @@ from bson.json_util import loads, dumps
 from bson.objectid import ObjectId
 from datetime import datetime
 from dateutil.tz import gettz
+from flask_cors import CORS, cross_origin
+
 
 
 #str(environ["MONGO_CONN_URL"])
@@ -20,6 +22,8 @@ print(client)
 
 
 app = Flask(__name__)
+CORS(app)
+
 #app.config.from_object(os.environ['APP_SETTINGS'])
 
 @app.route('/')
