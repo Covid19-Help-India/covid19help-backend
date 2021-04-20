@@ -133,7 +133,7 @@ def upvote():
 def downvote():
     if request.method == 'POST':
       obj_id = request.form['entry_id']
-      query_dict  = mycol.find({"_id" : ObjectId(u""+str(obj_id))})
+      query_dict  = mycol.find_one({"_id" : ObjectId(u""+str(obj_id))})
       query_dict["Downvotes"] += 1
       #dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
       dtobj = datetime.now(tz=gettz('Asia/Kolkata')).strftime('%H:%M:%S %d-%m-%Y')
