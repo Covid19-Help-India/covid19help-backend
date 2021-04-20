@@ -119,7 +119,7 @@ def upvote():
       newvalues = { "$set": { u"Upvotes": int(query_dict["Upvotes"]), u"Details" : query_dict["Details"] } }
       x  = mycol.update_one(myquery, newvalues)
       success = {}
-      success["info"] = x
+      success["info"] = "Hopefully success!"
       response = app.response_class(
                   response=dumps(success),
                   status=200,
@@ -142,7 +142,7 @@ def downvote():
       newvalues = { "$set": { u"Downvotes": int(query_dict["Downvotes"]), u"Details" : query_dict["Details"] } }
       x = mycol.update_one(myquery, newvalues)
       success = {}
-      success["info"] = x
+      success["info"] = "Hopefully success!"
       response = app.response_class(
                   response=dumps(success),
                   status=200,
