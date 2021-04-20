@@ -2,6 +2,7 @@ from os import environ
 from flask import Flask, render_template,jsonify, Response, request, redirect, json, render_template_string
 import pymongo
 from bson.json_util import loads, dumps
+from bson.objectid import ObjectId
 from datetime import datetime
 from dateutil.tz import gettz
 
@@ -149,6 +150,8 @@ def downvote():
               )
       return response
 
+@app.route('/login',methods=['POST','GET'])
+def login():
 
 
 if __name__ == '__main__':
