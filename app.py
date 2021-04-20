@@ -25,7 +25,7 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route('/add_info/', methods=['POST', 'GET'])
+@app.route('/add_info', methods=['POST', 'GET'])
 def add_info():
     if request.method == 'POST':
         #City, State, Category, Distributor Name, Phone Number, Address, Upvotes, Downvotes  UpdownDetails
@@ -43,7 +43,7 @@ def add_info():
         x  = mycol.insert_one(insert_data)
         return insert_data
 
-@app.route('/del_info/', methods=['POST', 'GET'])
+@app.route('/del_info', methods=['POST', 'GET'])
 def del_info():
     if request.method == 'POST':
         obj_id = request.form['entry_id']
@@ -58,7 +58,7 @@ def del_info():
                 )
         return response
 
-@app.route('/edit_info/', methods=['POST', 'GET'])
+@app.route('/edit_info', methods=['POST', 'GET'])
 def edit_info():
     if request.method == "POST":
         obj_id = request.form['entry_id']
@@ -78,7 +78,7 @@ def edit_info():
 
 
 
-@app.route('/get_info/', methods=['POST', 'GET'])
+@app.route('/get_info', methods=['POST', 'GET'])
 def get_info():
     print("Comes Here 0")
     if request.method == 'POST':
@@ -105,7 +105,7 @@ def get_info():
     return response
 
 
-@app.route('/upvote/', methods=['POST', 'GET'])
+@app.route('/upvote', methods=['POST', 'GET'])
 def upvote():
     if request.method == 'POST':
       obj_id = request.form['entry_id']
@@ -128,7 +128,7 @@ def upvote():
 
 
 
-@app.route('/downvote/', methods=['POST', 'GET'])
+@app.route('/downvote', methods=['POST', 'GET'])
 def downvote():
     if request.method == 'POST':
       obj_id = request.form['entry_id']
