@@ -60,6 +60,7 @@ def del_info():
 
 @app.route('/edit_info/', methods=['POST', 'GET'])
 def edit_info():
+    prin("Comes Here 0")
     if request.method == "POST":
         obj_id = request.form['entry_id']
         myquery = {u"_id":ObjectId(u""+str(obj_id))}
