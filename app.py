@@ -95,6 +95,7 @@ def get_info():
                     mimetype='application/json'
                 )
         return response
+    print("Shouldnt come here")
     response = app.response_class(
                 response=dumps(),
                 status=404,
