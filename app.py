@@ -196,7 +196,7 @@ def login():
                 status = {}
                 print("user n pass match")
                 status["success"] = True
-                status["username"] = login_user
+                status["username"] = str(request.form['username'])
                 response = app.response_class(
                     response=dumps(status),
                     status=200,
