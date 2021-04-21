@@ -183,7 +183,7 @@ def login():
 		#og : if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
 		login_user = mylogin.find_one({u'username':str(request.form['username'])})
 		if login_user:
-			 if bcrypt.checkpw(request.form['password'].encode('utf-8'), login_user['password']):
+			 if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
 				 status = {}
 				 print("user n pass match")
 				 status["success"] = True
