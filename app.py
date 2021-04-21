@@ -159,10 +159,11 @@ def login():
     print("Code Left Updated!")
     if request.method == 'POST':
         #user = mylogin.
-        login_user = mylogin.find_one({u'Username':str(request.form['username'])})
+        login_user = mylogin.find_one({u'username':str(request.form['username'])})
         if login_user:
              if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
                  status = {}
+				 print("user n pass match")
                  status["success"] = True
                  status["username"] = login_user
                  response = app.response_class(
