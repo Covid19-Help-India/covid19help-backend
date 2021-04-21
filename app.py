@@ -6,8 +6,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from dateutil.tz import gettz
 from flask_cors import CORS, cross_origin
-
-
+import bcrypt
 
 #str(environ["MONGO_CONN_URL"])
 #str(environ["MONGO_DB"])
