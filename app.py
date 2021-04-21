@@ -192,8 +192,8 @@ def login():
 		login_user = mylogin.find_one(
 			{u'username': str(request.form['username'])})
 	print("Username: ", request.form['username'])
-	if login_user:
-	  print("Username matching in table")
+	    if login_user:
+	        print("Username matching in table")
 			if request.form['password'] == login_user['password']:
 				status = {}
 				print("User n pass match\n Password: ", request.form['password'])
