@@ -12,11 +12,12 @@ from flask_cors import CORS, cross_origin
 #str(environ["MONGO_CONN_URL"])
 #str(environ["MONGO_DB"])
 #str(environ["MONGO_COL"])
-
+MONGO_USER = "Users"
 print("App Starts")
 client = pymongo.MongoClient(str(environ["MONGO_CONN_URL"]))
 mydb = client[str(environ["MONGO_DB"])]
 mycol = mydb[str(environ["MONGO_COL"])]
+mylogin = mydb[str(MONGO_USER)]
 print(client)
 
 
@@ -156,7 +157,36 @@ def downvote():
 
 @app.route('/login',methods=['POST','GET'])
 def login():
-    print("Code Left Updation Left!")
+    print("Code Left Updated!")
+    if request.method == 'POST':
+        #user = mylogin.
+        login_user = mylogin.find_one({u'Username':str(request.form['username'])})
+        if login_user:
+             if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+                 status = {}
+                 status["Success"] = True
+                 status["username"] = login_user
+                 response = app.response_class(
+                               response=dumps(status),
+                               status=200,
+                               mimetype='application/json'
+                           )
+                 return response
+        else:
+        status = {}
+        status["Success"] = False
+        response = app.response_class(
+                      response=dumps(status),
+                      status=200,
+                      mimetype='application/json'
+                  )
+        return response
+
+
+
+        # username = request.body['username'] #same for pass
+        # passw = request.body['password']
+
 
 
 if __name__ == '__main__':
