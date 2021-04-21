@@ -158,73 +158,6 @@ def upvote():
 
 @app.route('/downvote', methods=['POST', 'GET'])
 def downvote():
-<<<<<<< HEAD
-	if request.method == 'POST':
-	  obj_id = request.form['entry_id']
-	  query_dict  = mycol.find_one({"_id" : ObjectId(u""+str(obj_id))})
-	  query_dict["Downvotes"] += 1
-	  #dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
-	  dtobj = datetime.now(tz=gettz('Asia/Kolkata')).strftime('%H:%M:%S %d-%m-%Y')
-	  query_dict["Details"] = "Downvoted at " + str(dtobj) +  " for " + request.form['reason'] + " <br/>" + query_dict["Details"]
-	  myquery = { "_id": ObjectId(u""+str(obj_id)) }
-	  newvalues = { "$set": { u"Downvotes": int(query_dict["Downvotes"]), u"Details" : query_dict["Details"] } }
-	  x = mycol.update_one(myquery, newvalues)
-	  success = {}
-	  success["info"] = "Hopefully success!"
-	  response = app.response_class(
-				  response=dumps(success),
-				  status=200,
-				  mimetype='application/json'
-			  )
-	  return response
-
-@app.route('/login',methods=['POST','GET'])
-def login():
-	print("Code Left Updated!")
-	if request.method == 'POST':
-		#user = mylogin.
-		#if bcrypt.checkpw(password.encode('utf-8'), passwordcheck)
-		#og : if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-		login_user = mylogin.find_one({u'username':str(request.form['username'])})
-		if login_user:
-			 if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-				 status = {}
-				 print("user n pass match")
-				 status["success"] = True
-				 status["username"] = login_user
-				 response = app.response_class(
-							   response=dumps(status),
-							   status=200,
-							   mimetype='application/json'
-						   )
-				 return response
-			 else :
-				status = {}
-				status["success"] = False
-				status["message"] = "Your password is incorrect."
-				response = app.response_class(
-							  response=dumps(status),
-							  status=200,
-							  mimetype='application/json'
-						  )
-				return response
-		else :
-			status = {}
-			status["success"] = False
-			status["message"] = "Account doesnt exist."
-			response = app.response_class(
-						  response=dumps(status),
-						  status=200,
-						  mimetype='application/json'
-					  )
-			return response
-
-
-
-
-		# username = request.body['username'] #same for pass
-		# passw = request.body['password']
-=======
     if request.method == 'POST':
         obj_id = request.form['entry_id']
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
@@ -247,7 +180,6 @@ def login():
             mimetype='application/json'
         )
         return response
->>>>>>> f8c3c5f55342d0cad1e9309e27695a31a295eaaa
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -260,7 +192,7 @@ def login():
         login_user = mylogin.find_one(
             {u'username': str(request.form['username'])})
         if login_user:
-            if bcrypt.checkpw(request.form['password'].encode('utf-8'), login_user['password']):
+            if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
                 status = {}
                 print("user n pass match")
                 status["success"] = True
