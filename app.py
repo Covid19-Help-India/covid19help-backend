@@ -159,9 +159,11 @@ def login():
     print("Code Left Updated!")
     if request.method == 'POST':
         #user = mylogin.
+		#if bcrypt.checkpw(password.encode('utf-8'), passwordcheck)
+		#og : if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
         login_user = mylogin.find_one({u'username':str(request.form['username'])})
         if login_user:
-             if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+             if bcrypt.checkpw(request.form['password'].encode('utf-8'), login_user['password']):
                  status = {}
 				 print("user n pass match")
                  status["success"] = True
