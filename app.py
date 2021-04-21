@@ -184,17 +184,18 @@ def downvote():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    print("Code Left Updated!")
+    print("Code Updated!")
     if request.method == 'POST':
         # user = mylogin.
         # if bcrypt.checkpw(password.encode('utf-8'), passwordcheck)
         # og : if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
         login_user = mylogin.find_one(
             {u'username': str(request.form['username'])})
-        if login_user:
+		if login_user:
+			print("Username matching in table")
             if request.form['password'] == login_user['password'] :
                 status = {}
-                print("user n pass match")
+                print("User n pass match")
                 status["success"] = True
                 status["username"] = str(request.form['username'])
                 response = app.response_class(
