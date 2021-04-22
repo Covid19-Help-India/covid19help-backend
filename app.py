@@ -38,6 +38,8 @@ def hello():
 def add_info():
     if request.method == 'POST':
         # City, State, Category, Distributor Name, Phone Number, Address, Upvotes, Downvotes  UpdownDetails
+        print(request.form)
+        print(type request.form)
         insert_data = {}
         insert_data['City'] = request.form['']
         insert_data['State'] = request.form['']
@@ -56,6 +58,8 @@ def add_info():
 @app.route('/del_info', methods=['POST', 'GET'])
 def del_info():
     if request.method == 'POST':
+        print(request.form)
+        print(type request.form)
         obj_id = request.form['entry_id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         x = mycol.delete_one(myquery)
@@ -72,6 +76,8 @@ def del_info():
 @app.route('/edit_info', methods=['POST', 'GET'])
 def edit_info():
     if request.method == "POST":
+        print(request.form)
+        print(type request.form)
         obj_id = request.form['entry_id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {
@@ -96,7 +102,7 @@ def get_info():
         print("Works here 0")
         query_dict = {u'City': str(request.form['City'])}
         print("Works here 1", query_dict)
-        mydoc = mycol.find(query_dict)
+        mydoc = mycol.findAll()
         print("Works here 2", mydoc)
         json_docs = [doc for doc in mydoc]
         json_data = []
