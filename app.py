@@ -38,37 +38,50 @@ def hello():
 def add_info():
     if request.method == 'POST':
         # City, State, Category, Distributor Name, Phone Number, Address, Upvotes, Downvotes  UpdownDetails
-        data = json.loads(request.get_json())
-        print(data)
-        print(type(data))
         insert_data = {}
-        insert_data['City'] = request.form['']
-        insert_data['State'] = request.form['']
-        insert_data['Category'] = request.form['']
-        insert_data['Distributor'] = request.form['']
-        insert_data['DistPhNo'] = request.form['']
-        insert_data['DistAddress'] = request.form['']
+        insert_data['City'] = request.form['City']
+        insert_data['State'] = request.form['State']
+        insert_data['Category'] = request.form['Category']
+        insert_data['Distributor'] = request.form['Distributor']
+        insert_data['DistPhNo'] = request.form['DistPhNo']
+        insert_data['DistAddress'] = request.form['DistAddress']
         insert_data['Upvotes'] = int(0)
         insert_data['Downvotes'] = int(0)
-        insert_data['Details'] = u''
-        insert_data['Source'] = request.form['']
-        x = mycol.insert_one(insert_data)
-        return insert_data
+        insert_data['Details'] = request.form['Details']
+        insert_data['Pincode'] = request.form['Pincode']
+        insert_data['Source'] = request.form['Source']
+        try:
+            x = mycol.insert_one(insert_data)
+            insert_data['status'] = True
+        except:
+            insert_data['status'] = False
+        insert_data['id'] = str(x.inserted_id)
+        insert_data.pop('_id')
+        print(insert_data)
+        response = app.response_class(
+            response=dumps(insert_data),
+            status=200,
+            mimetype='application/json'
+        )
+        return response
 
 
 @app.route('/del_info', methods=['POST', 'GET'])
 def del_info():
     if request.method == 'POST':
         #data = json.loads(request.get_json())
-        #print(data)
-        #print(type(data))
-        obj_id = request.form['entry_id']
+        # print(data)
+        # print(type(data))
+        delete_data = {}
+        obj_id = request.form['id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
-        x = mycol.delete_one(myquery)
-        success = {}
-        success["info"] = x
+        try:
+            x = mycol.delete_one(myquery)
+            delete_data['status'] = True
+        except:
+            delete_data['status'] = False
         response = app.response_class(
-            response=dumps(success),
+            response=dumps(delete_data),
             status=200,
             mimetype='application/json'
         )
@@ -78,18 +91,32 @@ def del_info():
 @app.route('/edit_info', methods=['POST', 'GET'])
 def edit_info():
     if request.method == "POST":
-        data = json.loads(request.get_json())
-        print(data)
-        print(type(data))
-        obj_id = request.form['entry_id']
+        update_data = {}
+        update_data['City'] = request.form['City']
+        update_data['State'] = request.form['State']
+        update_data['Category'] = request.form['Category']
+        update_data['Distributor'] = request.form['Distributor']
+        update_data['DistPhNo'] = request.form['DistPhNo']
+        update_data['DistAddress'] = request.form['DistAddress']
+        update_data['Upvotes'] = request.form['Upvotes']
+        update_data['Downvotes'] = request.form['Downvotes']
+        update_data['Details'] = request.form['Details']
+        update_data['Pincode'] = request.form['Pincode']
+        update_data['Source'] = request.form['Source']
+        print(update_data)
+        obj_id = request.form['id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
-        newvalues = {"$set": {
-            u""+str(request.form["update_field"]): str(request.form['update_value'])}}
-        x = mycol.update_one(myquery, newvalues)
-        success = {}
-        success["info"] = x
+        newvalues = {"$set": update_data}
+        # newvalues = {"$set": {
+        #     u""+str(request.form["update_field"]): str(request.form['update_value'])}}
+        try:
+            x = mycol.update_one(myquery, newvalues)
+            update_data['status'] = True
+        except:
+            update_data['status'] = False
+        update_data['id'] = request.form['id']
         response = app.response_class(
-            response=dumps(success),
+            response=dumps(update_data),
             status=200,
             mimetype='application/json'
         )
@@ -122,7 +149,7 @@ def get_info():
                 "Downvotes": str(doc["Downvotes"]),
                 "Details": str(doc["Details"]),
                 "Source": str(doc["Source"]),
-                "Pincode": str(doc["Pincode"]),
+                "Pincode": str(doc["Pincode"])
             })
         response = app.response_class(
             response=dumps(json_data),
@@ -201,7 +228,7 @@ def login():
         login_user = mylogin.find_one(
             {u'username': str(request.form['username'])})
         if login_user:
-            if request.form['password'] == login_user['password'] :
+            if request.form['password'] == login_user['password']:
                 status = {}
                 print("user n pass match")
                 status["success"] = True
