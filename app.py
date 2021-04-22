@@ -59,10 +59,10 @@ def add_info():
 @app.route('/del_info', methods=['POST', 'GET'])
 def del_info():
     if request.method == 'POST':
-        data = json.loads(request.get_json())
-        print(data)
-        print(type(data))
-        #obj_id = request.form['entry_id']
+        #data = json.loads(request.get_json())
+        #print(data)
+        #print(type(data))
+        obj_id = request.form['entry_id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         x = mycol.delete_one(myquery)
         success = {}
@@ -78,8 +78,9 @@ def del_info():
 @app.route('/edit_info', methods=['POST', 'GET'])
 def edit_info():
     if request.method == "POST":
-        print(request.form)
-        print(type request.form)
+        data = json.loads(request.get_json())
+        print(data)
+        print(type(data))
         obj_id = request.form['entry_id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {
