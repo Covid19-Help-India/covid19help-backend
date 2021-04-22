@@ -38,8 +38,9 @@ def hello():
 def add_info():
     if request.method == 'POST':
         # City, State, Category, Distributor Name, Phone Number, Address, Upvotes, Downvotes  UpdownDetails
-        print(request.form)
-        print(type request.form)
+        data = json.loads(request.get_json())
+        print(data)
+        print(type(data))
         insert_data = {}
         insert_data['City'] = request.form['']
         insert_data['State'] = request.form['']
@@ -58,9 +59,10 @@ def add_info():
 @app.route('/del_info', methods=['POST', 'GET'])
 def del_info():
     if request.method == 'POST':
-        print(request.form)
-        print(type request.form)
-        obj_id = request.form['entry_id']
+        data = json.loads(request.get_json())
+        print(data)
+        print(type(data))
+        #obj_id = request.form['entry_id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         x = mycol.delete_one(myquery)
         success = {}
