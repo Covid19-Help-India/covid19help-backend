@@ -100,9 +100,9 @@ def get_info():
     if request.method == 'POST':
         # query_dict = {u'State':str(request.form['State']),u'Category':str(request.form['Category']),u'City':str(request.form['City'])}
         print("Works here 0")
-        query_dict = {u'City': str(request.form['City'])}
-        print("Works here 1", query_dict)
-        mydoc = mycol.findAll()
+        # query_dict = {u'City': str(request.form['City'])}
+        # print("Works here 1", query_dict)
+        mydoc = mycol.find()
         print("Works here 2", mydoc)
         json_docs = [doc for doc in mydoc]
         json_data = []
