@@ -108,7 +108,7 @@ def edit_info():
         update_data['Source'] = request.form['Source']
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
                              ).strftime("%d %b %Y at %-I:%M %p")
-        insert_data["Details"] = "Data Edited on " + \
+        update_data["Details"] = "Data Edited on " + \
             str(dtobj)
         obj_id = request.form['id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
