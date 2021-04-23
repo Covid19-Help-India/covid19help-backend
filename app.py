@@ -50,8 +50,8 @@ def add_info():
         insert_data['Pincode'] = request.form['Pincode']
         insert_data['Source'] = request.form['Source']
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime("%-I:%M %p %d %b %Y")
-        insert_data["Details"] = "Added at " + \
+                             ).strftime("%d %b %Y at %-I:%M %p")
+        insert_data["Details"] = "Added on " + \
             str(dtobj)
         try:
             x = mycol.insert_one(insert_data)
@@ -107,8 +107,8 @@ def edit_info():
         update_data['Pincode'] = request.form['Pincode']
         update_data['Source'] = request.form['Source']
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime("%-I:%M %p %d %b %Y")
-        insert_data["Details"] = "Data Edited at " + \
+                             ).strftime("%d %b %Y at %-I:%M %p")
+        insert_data["Details"] = "Data Edited on " + \
             str(dtobj)
         obj_id = request.form['id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
@@ -184,8 +184,8 @@ def upvote():
         query_dict["Upvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime("%-I:%M %p %d %b %Y")
-        query_dict["Details"] = "Upvoted at " + \
+                             ).strftime("%d %b %Y at %-I:%M %p")
+        query_dict["Details"] = "Upvoted on " + \
             str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Upvotes": int(
@@ -229,8 +229,8 @@ def downvote():
         query_dict["Downvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime("%-I:%M %p %d %b %Y")
-        query_dict["Details"] = "Downvoted at " + \
+                             ).strftime("%d %b %Y at %-I:%M %p")
+        query_dict["Details"] = "Downvoted on " + \
             str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Downvotes": int(
