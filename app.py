@@ -50,7 +50,7 @@ def add_info():
         insert_data['Pincode'] = request.form['Pincode']
         insert_data['Source'] = request.form['Source']
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime('%H:%M:%S %d-%m-%Y')
+                             ).strftime("%-I:%M %p %d %b %Y")
         insert_data["Details"] = "Added at " + \
             str(dtobj)
         try:
@@ -107,7 +107,7 @@ def edit_info():
         update_data['Pincode'] = request.form['Pincode']
         update_data['Source'] = request.form['Source']
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime('%H:%M:%S %d-%m-%Y')
+                             ).strftime("%-I:%M %p %d %b %Y")
         insert_data["Details"] = "Data Edited at " + \
             str(dtobj)
         obj_id = request.form['id']
@@ -184,7 +184,7 @@ def upvote():
         query_dict["Upvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime('%H:%M:%S %d-%m-%Y')
+                             ).strftime("%-I:%M %p %d %b %Y")
         query_dict["Details"] = "Upvoted at " + \
             str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
@@ -229,7 +229,7 @@ def downvote():
         query_dict["Downvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
-                             ).strftime('%H:%M:%S %d-%m-%Y')
+                             ).strftime("%-I:%M %p %d %b %Y")
         query_dict["Details"] = "Downvoted at " + \
             str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
