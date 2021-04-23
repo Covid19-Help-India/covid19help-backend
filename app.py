@@ -47,9 +47,12 @@ def add_info():
         insert_data['DistAddress'] = request.form['DistAddress']
         insert_data['Upvotes'] = int(0)
         insert_data['Downvotes'] = int(0)
-        insert_data['Details'] = request.form['Details']
         insert_data['Pincode'] = request.form['Pincode']
         insert_data['Source'] = request.form['Source']
+        dtobj = datetime.now(tz=gettz('Asia/Kolkata')
+                             ).strftime('%H:%M:%S %d-%m-%Y')
+        insert_data["Details"] = "Added at " + \
+            str(dtobj)
         try:
             x = mycol.insert_one(insert_data)
             insert_data['status'] = True
@@ -103,7 +106,10 @@ def edit_info():
         update_data['Details'] = request.form['Details']
         update_data['Pincode'] = request.form['Pincode']
         update_data['Source'] = request.form['Source']
-        print(update_data)
+        dtobj = datetime.now(tz=gettz('Asia/Kolkata')
+                             ).strftime('%H:%M:%S %d-%m-%Y')
+        insert_data["Details"] = "Data Edited at " + \
+            str(dtobj)
         obj_id = request.form['id']
         myquery = {u"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": update_data}
@@ -189,7 +195,18 @@ def upvote():
             x = mycol.update_one(myquery, newvalues)
             query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
             print(dir(x))
-            upvote_data["Upvotes"] = query_dict["Upvotes"]
+            upvote_data['id'] = obj_id
+            upvote_data['City'] = query_dict['City']
+            upvote_data['State'] = query_dict['State']
+            upvote_data['Category'] = query_dict['Category']
+            upvote_data['Distributor'] = query_dict['Distributor']
+            upvote_data['DistPhNo'] = query_dict['DistPhNo']
+            upvote_data['DistAddress'] = query_dict['DistAddress']
+            upvote_data['Upvotes'] = query_dict['Upvotes']
+            upvote_data['Downvotes'] = query_dict['Downvotes']
+            upvote_data['Details'] = query_dict['Details']
+            upvote_data['Pincode'] = query_dict['Pincode']
+            upvote_data['Source'] = query_dict['Source']
             upvote_data['status'] = True
         except:
             upvote_data['status'] = False
@@ -223,7 +240,18 @@ def downvote():
             x = mycol.update_one(myquery, newvalues)
             query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
             print(dir(x))
-            downvote_data["Downvotes"] = query_dict["Downvotes"]
+            downvote_data['id'] = obj_id
+            downvote_data['City'] = query_dict['City']
+            downvote_data['State'] = query_dict['State']
+            downvote_data['Category'] = query_dict['Category']
+            downvote_data['Distributor'] = query_dict['Distributor']
+            downvote_data['DistPhNo'] = query_dict['DistPhNo']
+            downvote_data['DistAddress'] = query_dict['DistAddress']
+            downvote_data['Upvotes'] = query_dict['Upvotes']
+            downvote_data['Downvotes'] = query_dict['Downvotes']
+            downvote_data['Details'] = query_dict['Details']
+            downvote_data['Pincode'] = query_dict['Pincode']
+            downvote_data['Source'] = query_dict['Source']
             downvote_data['status'] = True
         except:
             downvote_data['status'] = False
