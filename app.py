@@ -173,7 +173,9 @@ def upvote():
         obj_id = request.form['id']
         print(obj_id)
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
-        query_dict["Upvotes"] += 1
+        upv = int(query_dict["Upvotes"])
+        upv = upv + 1
+        query_dict["Upvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
                              ).strftime('%H:%M:%S %d-%m-%Y')
@@ -185,9 +187,10 @@ def upvote():
         upvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
-            upvote_data['success'] = True
+            upvote_data['status'] = True
+            upvote_data['upvotes'] = x['upvote']
         except:
-            upvote_data['success'] = False
+            upvote_data['status'] = False
         response = app.response_class(
             response=dumps(upvote_data),
             status=200,
@@ -202,7 +205,9 @@ def downvote():
         obj_id = request.form['id']
         print(obj_id)
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
-        query_dict["Downvotes"] += 1
+        upv = int(query_dict["Downvotes"])
+        upv = upv + 1
+        query_dict["Downvotes"] = upv
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
                              ).strftime('%H:%M:%S %d-%m-%Y')
@@ -214,9 +219,10 @@ def downvote():
         downvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
-            downvote_data['success'] = True
+            downvote_data['status'] = True
+            downvote_data['downvotes'] = x['Downvotes']
         except:
-            downvote_data['success'] = False
+            downvote_data['status'] = False
         response = app.response_class(
             response=dumps(downvote_data),
             status=200,
