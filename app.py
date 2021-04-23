@@ -187,8 +187,8 @@ def upvote():
         upvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
+            print(x)
             upvote_data['status'] = True
-            upvote_data['upvotes'] = x['upvote']
         except:
             upvote_data['status'] = False
         response = app.response_class(
@@ -219,8 +219,8 @@ def downvote():
         downvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
+            print(x)
             downvote_data['status'] = True
-            downvote_data['downvotes'] = x['Downvotes']
         except:
             downvote_data['status'] = False
         response = app.response_class(
