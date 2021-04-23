@@ -171,6 +171,7 @@ def get_info():
 def upvote():
     if request.method == 'POST':
         obj_id = request.form['id']
+        print(obj_id)
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
         query_dict["Upvotes"] += 1
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
@@ -181,11 +182,14 @@ def upvote():
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Upvotes": int(
             query_dict["Upvotes"]), u"Details": query_dict["Details"]}}
-        x = mycol.update_one(myquery, newvalues)
-        success = {}
-        success["info"] = "Hopefully success!"
+        upvote_data = {}
+        try:
+            x = mycol.update_one(myquery, newvalues)
+            upvote_data['success'] = True
+        except:
+            upvote_data['success'] = False
         response = app.response_class(
-            response=dumps(success),
+            response=dumps(upvote_data),
             status=200,
             mimetype='application/json'
         )
@@ -196,6 +200,7 @@ def upvote():
 def downvote():
     if request.method == 'POST':
         obj_id = request.form['id']
+        print(obj_id)
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
         query_dict["Downvotes"] += 1
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
@@ -206,11 +211,14 @@ def downvote():
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Downvotes": int(
             query_dict["Downvotes"]), u"Details": query_dict["Details"]}}
-        x = mycol.update_one(myquery, newvalues)
-        success = {}
-        success["info"] = "Hopefully success!"
+        downvote_data = {}
+        try:
+            x = mycol.update_one(myquery, newvalues)
+            downvote_data['success'] = True
+        except:
+            downvote_data['success'] = False
         response = app.response_class(
-            response=dumps(success),
+            response=dumps(downvote_data),
             status=200,
             mimetype='application/json'
         )
