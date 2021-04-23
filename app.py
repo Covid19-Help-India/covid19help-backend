@@ -187,7 +187,9 @@ def upvote():
         upvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
-            print(x)
+            query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
+            print(dir(x))
+            upvote_data["Upvotes"] = query_dict["Upvotes"]
             upvote_data['status'] = True
         except:
             upvote_data['status'] = False
@@ -219,7 +221,9 @@ def downvote():
         downvote_data = {}
         try:
             x = mycol.update_one(myquery, newvalues)
-            print(x)
+            query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
+            print(dir(x))
+            downvote_data["Downvotes"] = query_dict["Downvotes"]
             downvote_data['status'] = True
         except:
             downvote_data['status'] = False
