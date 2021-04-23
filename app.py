@@ -177,7 +177,7 @@ def upvote():
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
                              ).strftime('%H:%M:%S %d-%m-%Y')
         query_dict["Details"] = "Upvoted at " + \
-            str(dtobj) + " <br/>" + query_dict["Details"]
+            str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Upvotes": int(
             query_dict["Upvotes"]), u"Details": query_dict["Details"]}}
@@ -202,8 +202,7 @@ def downvote():
         dtobj = datetime.now(tz=gettz('Asia/Kolkata')
                              ).strftime('%H:%M:%S %d-%m-%Y')
         query_dict["Details"] = "Downvoted at " + \
-            str(dtobj) + " for " + \
-            request.form['reason'] + " <br/>" + query_dict["Details"]
+            str(dtobj)
         myquery = {"_id": ObjectId(u""+str(obj_id))}
         newvalues = {"$set": {u"Downvotes": int(
             query_dict["Downvotes"]), u"Details": query_dict["Details"]}}
