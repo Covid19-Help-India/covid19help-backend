@@ -170,7 +170,7 @@ def get_info():
 @app.route('/upvote', methods=['POST', 'GET'])
 def upvote():
     if request.method == 'POST':
-        obj_id = request.form['entry_id']
+        obj_id = request.form['id']
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
         query_dict["Upvotes"] += 1
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
@@ -195,7 +195,7 @@ def upvote():
 @app.route('/downvote', methods=['POST', 'GET'])
 def downvote():
     if request.method == 'POST':
-        obj_id = request.form['entry_id']
+        obj_id = request.form['id']
         query_dict = mycol.find_one({"_id": ObjectId(u""+str(obj_id))})
         query_dict["Downvotes"] += 1
         # dtobj = datetime.now(tz=gettz('Asia/Kolkata'))
